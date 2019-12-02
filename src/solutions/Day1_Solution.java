@@ -1,12 +1,12 @@
 package solutions;
 
-import utils.Utils;
+import utils.Util;
 
 import java.util.List;
 
 public class Day1_Solution {
     public static void main(String[] args) {
-        List<String> input = Utils.readInput("/day01.txt");
+        List<String> input = Util.readInput("/day01.txt");
         new Day1_Solution().runPart1(input);
         new Day1_Solution().runPart2(input);
     }

@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Utils {
+public class Util {
     public static List<String> readInput(String fileName) {
         File file = new File ("src/resources" + fileName);
         List<String> input = new ArrayList<>();

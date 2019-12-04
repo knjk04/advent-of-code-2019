@@ -9,20 +9,19 @@ import java.util.stream.IntStream;
 public class Day4_Solution {
     public static void main(String[] args) {
         List<String> input = Util.readInput("/day04.txt");
-//        new Day4_Solution().runPartOne(input);
-        new Day4_Solution().runPartTwo(input);
-    }
-
-    private void runPartOne(List<String> input) {
         String all = String.join("-", input);
         String[] bounds = all.split("-");
         int lowerBound = Integer.parseInt(bounds[0]);
         int upperBound = Integer.parseInt(bounds[1]);
-
         // get all of the numbers within the range
         ArrayList<Integer> allNumbersInRange = new ArrayList<>();
         IntStream.rangeClosed(lowerBound, upperBound).forEach(allNumbersInRange::add);
 
+        new Day4_Solution().runPartOne(allNumbersInRange);
+        new Day4_Solution().runPartTwo(allNumbersInRange);
+    }
+
+    private void runPartOne(ArrayList<Integer> allNumbersInRange) {
         int differentPasswords = 0;
         for (Integer i : allNumbersInRange) {
 
@@ -47,19 +46,10 @@ public class Day4_Solution {
                 differentPasswords++;
             }
         }
-        System.out.println("Number of passwords: " + differentPasswords);
+        System.out.println("Part 1. Number of passwords: " + differentPasswords);
     }
 
-    private void runPartTwo(List<String> input) {
-        String all = String.join("-", input);
-        String[] bounds = all.split("-");
-        int lowerBound = Integer.parseInt(bounds[0]);
-        int upperBound = Integer.parseInt(bounds[1]);
-
-        // get all of the numbers within the range
-        ArrayList<Integer> allNumbersInRange = new ArrayList<>();
-        IntStream.rangeClosed(lowerBound, upperBound).forEach(allNumbersInRange::add);
-
+    private void runPartTwo(ArrayList<Integer> allNumbersInRange) {
         int differentPasswords = 0;
         for (Integer i : allNumbersInRange) {
 
@@ -106,6 +96,6 @@ public class Day4_Solution {
                 differentPasswords++;
             }
         }
-        System.out.println("Number of passwords: " + differentPasswords);
+        System.out.println("Part 2. Number of passwords: " + differentPasswords);
     }
 }

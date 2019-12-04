@@ -61,12 +61,12 @@ public class Day3_Solution {
         ArrayList<Coordinates> intersectionPoints = new ArrayList<>();
         for (Coordinates c1 : allPointsPath1) {
             for (Coordinates c2 : allPointsPath2) {
-                if (c1.x == c2.x && c1.y == c2.y && (c1.x != originX) && (c1.y != originY)) {
+                if (c1.x == c2.x && c1.y == c2.y) {
                     intersectionPoints.add(c1);
-//                    System.out.println("c1 intersection x = " + c1.x);
-//                    System.out.println("c1 intersection y = " + c1.y);
-//                    System.out.println("c2 intersection x = " + c2.x);
-//                    System.out.println("c2 intersection y = " + c2.y);
+                    System.out.println("c1 intersection x = " + c1.x);
+                    System.out.println("c1 intersection y = " + c1.y);
+                    System.out.println("c2 intersection x = " + c2.x);
+                    System.out.println("c2 intersection y = " + c2.y);
                     break;
                 }
             }
@@ -90,7 +90,9 @@ public class Day3_Solution {
                     Coordinates coordinates = new Coordinates();
                     coordinates.x = n;
                     coordinates.y = finalCurrentY;
-                    allPointsPath.add(coordinates);
+                    if (!(coordinates.x == 0 && coordinates.y == 0)) {
+                        allPointsPath.add(coordinates);
+                    }
                 });
                 currentX -= moveBy;
             } else if (moveDirection == 'R') {
@@ -98,7 +100,9 @@ public class Day3_Solution {
                     Coordinates coordinates = new Coordinates();
                     coordinates.x = n;
                     coordinates.y = finalCurrentY;
-                    allPointsPath.add(coordinates);
+                    if (!(coordinates.x == 0 && coordinates.y == 0)) {
+                        allPointsPath.add(coordinates);
+                    }
                 });
                 currentX += moveBy;
             } else if (moveDirection == 'U') {
@@ -106,7 +110,9 @@ public class Day3_Solution {
                     Coordinates coordinates = new Coordinates();
                     coordinates.x = finalCurrentX;
                     coordinates.y = n;
-                    allPointsPath.add(coordinates);
+                    if (!(coordinates.x == 0 && coordinates.y == 0)) {
+                        allPointsPath.add(coordinates);
+                    }
                 });
                 currentY += moveBy;
             } else if (moveDirection == 'D') {
@@ -120,7 +126,9 @@ public class Day3_Solution {
                     coordinates.y = n;
 //                    System.out.println("D x: " + coordinates.x);
 //                    System.out.println("D y: " + coordinates.y);
-                    allPointsPath.add(coordinates);
+                    if (!(coordinates.x == 0 && coordinates.y == 0)) {
+                        allPointsPath.add(coordinates);
+                    }
                 });
                 currentY -= moveBy;
             }

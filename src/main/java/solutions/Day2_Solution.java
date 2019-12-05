@@ -7,41 +7,30 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Day2_Solution {
-
-    private enum PartFlag {
-        PART_ONE, PART_TWO
-    }
-
     public static void main(String[] args) {
         List<String> input = Util.readInput("/day02.txt");
+        System.out.println("\nPart 1:");
+        new Day2_Solution().runPartOne(input, 12, 2);
+        System.out.println("\nPart 2:");
+        new Day2_Solution().runPartTwo(input);
+    }
 
+    private void runPartOne(List<String> input, int position1, int position2) {
         // add the strings separated by commas into the ArrayList
         ArrayList<String> strings = new ArrayList<>();
         for (String line : input) {
             List<String> lineStrings = Arrays.asList(line.split(","));
             strings.addAll(lineStrings);
         }
-        ArrayList<Integer> ints = new Day2_Solution().convertArrayListStringToArrayListInteger(strings);
-
-//        new Day2_Solution().runPartOne(ints, 12, 2, PartFlag.PART_ONE);
-        new Day2_Solution().runPartTwo(ints);
-    }
-
-    private void runPartOne(List<Integer> ints, int position1, int position2, PartFlag flag) {
-        ArrayList<Integer> intsCopy = new ArrayList<>(ints); // for part 2
+        ArrayList<Integer> ints = convertArrayListStringToArrayListInteger(strings);
 
         ints.set(1, position1); // replace position 1
         ints.set(2, position2); // replace position 2
 
-        if (flag == PartFlag.PART_TWO) {
-//            System.out.println("1) pos1 = " + position1);
-//            System.out.println("2) pos2 = " + position2);
-        }
-
-        // Opcode 99: halt
         // Opcode 1: adds the numbers from the two positions specifies by index 1 and 2 and stores the result in the
         // position specified by index 3
         // Opcode 2: multiplies the two inputs
+        // Opcode 99: halt
 
         for (int i = 0; i < ints.size(); i++) {
             int firstOperandIndex = -1, secondOperandIndex = -1, resultIndex = -1;
@@ -58,58 +47,35 @@ public class Day2_Solution {
                 }
             }
 
-            if (ints.get(i) == 1 && (i + 1) < ints.size() && (i + 2) < ints.size() &&
-                    firstOperandIndex < ints.size() && secondOperandIndex < ints.size() && resultIndex < ints.size()) {
+            if (ints.get(i) == 1 && (i + 1) < ints.size() && (i + 2) < ints.size()) {
 //                System.out.println("i before sum = " + i);
                 int sum = ints.get(firstOperandIndex) + ints.get(secondOperandIndex);
                 ints.set(resultIndex, sum);
                 i += 3; // 3 because i++ will add another, making i move 4 places in total
-            } else if (ints.get(i) == 2 && (i + 1) < ints.size() && (i + 2) < ints.size() &&
-                    firstOperandIndex < ints.size() && secondOperandIndex < ints.size() && resultIndex < ints.size()) {
+            } else if (ints.get(i) == 2 && (i + 1) < ints.size() && (i + 2) < ints.size()) {
                 int product = ints.get(firstOperandIndex) * ints.get(secondOperandIndex);
                 ints.set(resultIndex, product);
                 i += 3; // 3 because i++ will add another, making i move 4 places in total
-            } else if (ints.get(i) == 99 && firstOperandIndex < ints.size() && secondOperandIndex < ints.size() &&
-                    resultIndex < ints.size()) {
+            } else if (ints.get(i) == 99) {
                 break;
             }
-
-            if (flag == PartFlag.PART_TWO) {
-                if (ints.get(0) == 19690720) {
-                    int noun = ints.get(1);
-                    int verb = ints.get(2);
-                    System.out.println("--- Part 2 ---");
-                    System.out.println("100 * noun + verb = " + ((100 * noun) + verb));
-                    return;
-                } else {
-
-//                    if (position1 == 82 && position2 == 98) {
-//                        System.out.println("0 = " + ints.get(0));
-//                    }
-
-                    ints.clear();
-                    ints.addAll(intsCopy);
-//                    ints.set(1, position1); // update position 2
-//                    ints.set(2, position2); // update position 2
-                }
-//                position2++;
-//                System.out.println("pos2 after update = " + position2);
-            }
         }
 
-        if (flag == PartFlag.PART_ONE) {
-            System.out.println("\n---Part 1---");
-            System.out.println("position 0: " + ints.get(0));
-        }
+        System.out.println("Part 1 result. Position 0 = " + ints.get(0));
     }
 
-    private void runPartTwo(List<Integer> ints) {
+    private void runPartTwo(List<String> input) {
+        // add the strings separated by commas into the ArrayList
+        ArrayList<String> strings = new ArrayList<>();
+        for (String line : input) {
+            List<String> lineStrings = Arrays.asList(line.split(","));
+            strings.addAll(lineStrings);
+        }
+
+        ArrayList<Integer> ints = convertArrayListStringToArrayListInteger(strings);
         ArrayList<Integer> intsCopy = new ArrayList<>(ints);
         for (int i = 0; i <= 99; i++) {
             for (int j = 0; j <= 99; j++) {
-                runPartOne(ints, i, j, PartFlag.PART_TWO);
-
-                /*
                 ints.set(1, i); // replace position 1
                 ints.set(2, j); // replace position 2
 
@@ -149,20 +115,14 @@ public class Day2_Solution {
                 }
 
                 if (ints.get(0) == 19690720) {
-                    System.out.println("winning i = " + i + ", j = " + j);
                     int noun = ints.get(1);
                     int verb = ints.get(2);
-                    System.out.println("--- Part 2 ---");
                     System.out.println("100 * noun + verb = " + ((100*noun) + verb));
                     return;
                 } else {
                     ints.clear();
                     ints.addAll(intsCopy);
                 }
-                 */
-
-
-
             }
         }
     }
@@ -170,10 +130,11 @@ public class Day2_Solution {
     private ArrayList<Integer> convertArrayListStringToArrayListInteger(ArrayList<String> strings) {
         ArrayList<Integer> ints = new ArrayList<>();
         for (String s : strings) {
-            if (s != "") {
+            if (!s.equals("")) {
                 ints.add(Integer.parseInt(s));
             }
         }
         return ints;
     }
 }
+
